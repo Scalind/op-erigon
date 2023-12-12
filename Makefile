@@ -70,6 +70,17 @@ docker: validate_docker_build_args git-submodules
 		${DOCKER_FLAGS} \
 		.
 
+## docker:                            validate, update submodules and build with docker
+docker-cloud: validate_docker_build_args git-submodules
+	DOCKER_BUILDKIT=1 $(DOCKER) build -f Dockerfile.scalind.cloud -t ${DOCKER_TAG} \
+		--build-arg "BUILD_DATE=$(shell date +"%Y-%m-%dT%H:%M:%S:%z")" \
+		--build-arg VCS_REF=${GIT_COMMIT} \
+		--build-arg VERSION=${GIT_TAG} \
+		--build-arg UID=${DOCKER_UID} \
+		--build-arg GID=${DOCKER_GID} \
+		${DOCKER_FLAGS} \
+		.
+
 xdg_data_home :=  ~/.local/share
 ifdef XDG_DATA_HOME
 	xdg_data_home = $(XDG_DATA_HOME)
