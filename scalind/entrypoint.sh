@@ -30,7 +30,7 @@ fi
 if [[ -f ~/configs/genesis.json ]]; then
   if [[ ! -f /volume/datadir/chaindata/mdbx.dat ]]; then
     echo "INFO: Data not found. Initializing from genesis file"
-    erigon init $ARGS ~/configs/genesis.json
+    erigon init $ARGS ~/configs/genesis.json || exit 1
     echo "INFO: Chain datadir initialized"
   fi
 else
